@@ -1,10 +1,11 @@
 import React from 'react'
+import Layout from '../../Components/Layout'
 
 const Home = () => {
   return (
-    <div className='text-center'>
+    <Layout className='text-center'>
       home
-    </div>
+    </Layout>
   )
 }
 
