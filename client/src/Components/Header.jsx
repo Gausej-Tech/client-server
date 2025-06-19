@@ -8,7 +8,7 @@ const Header = () => {
   const isLoggedIn = localStorage.getItem("token"); 
 
   const isActive = (path) =>
-    location.pathname === path ? "text-green-700 font-semibold" : "";
+    location.pathname === path ? "text-[#458C58] font-semibold" : "";
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -19,7 +19,7 @@ const Header = () => {
        
         <Link
           to="/"
-          className="Goldman text-3xl md:text-4xl font-bold text-green-700"
+          className="Goldman text-3xl md:text-4xl font-bold text-[#458C58]"
         >
           GausejTech
         </Link>
@@ -27,17 +27,17 @@ const Header = () => {
         {/* Desktop Nav */}
         <ul className="hidden md:flex gap-6 items-center">
           <li>
-            <Link to="/" className={`hover:text-green-700  ${isActive("/")}`}>
+            <Link to="/" className={`hover:text-[#458C58]  ${isActive("/")}`}>
               Home
             </Link>
           </li>
           <li>
-            <Link to="/explore" className={`hover:text-green-700  ${isActive("/explore")}`}>
+            <Link to="/explore" className={`hover:text-[#458C58] ${isActive("/explore")}`}>
               Explore
             </Link>
           </li>
           <li>
-            <Link to="/upload" className={`hover:text-green-700  ${isActive("/upload")}`}>
+            <Link to="/upload" className={`hover:text-[#45800b16aC58]  ${isActive("/upload")}`}>
               Upload
             </Link>
           </li>
@@ -59,12 +59,12 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden px-6 pb-4 overflow-auto bg-[#F5FBF1]">
-            <hr className="mb-5 text-green-700 opacity-45"/>
+            <hr className="mb-5 text-[#458C58] opacity-45"/>
           <ul className="flex flex-col gap-3 text-lg">
             <li>
               <Link
                 to="/"
-                className={`block hover:text-green-700 text-sm md:text-base ${isActive("/")}`}
+                className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/")}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Home
@@ -73,7 +73,7 @@ const Header = () => {
             <li>
               <Link
                 to="/explore"
-                className={`block hover:text-green-700 text-sm md:text-base ${isActive("/explore")}`}
+                className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/explore")}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Explore
@@ -82,7 +82,7 @@ const Header = () => {
             <li>
               <Link
                 to="/upload"
-                className={`block hover:text-green-700 text-sm md:text-base ${isActive("/upload")}`}
+                className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/upload")}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Upload
