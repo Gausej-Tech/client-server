@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const PageNotFound = () => {
   return (
-    <div className="h-screen flex flex-col items-center justify-center text-center bg-gradient-to-tr from-green-200 to-white px-4">
+    <div className="h-screen flex flex-col text-sm md:text-base items-center justify-center text-center bg-gradient-to-tr from-green-200 to-white px-4">
       
      
       <motion.div
@@ -15,13 +15,13 @@ const PageNotFound = () => {
       >
         👻 
       </motion.div>
-    
+
     
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl font-extrabold text-gray-800 mb-2"
+        className="md:text-4xl font-extrabold text-gray-800  text-3xl mb-2"
       >
         Oops! Lost in Space?
       </motion.h1>
@@ -31,7 +31,7 @@ const PageNotFound = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 1 }}
-        className="text-lg text-gray-600 mb-6 max-w-md"
+        className="text-md md:text-lg text-gray-600 mb-6 max-w-md"
       >
         The page you're looking for doesn't seem to exist. Maybe it's hiding or got deleted.
       </motion.p>

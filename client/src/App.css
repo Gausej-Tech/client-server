@@ -1,6 +1,7 @@
 @import "tailwindcss";
+
 body {
-  background-color: rgb(245, 251, 241);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* font-families */
@@ -13,7 +14,7 @@ body {
 
 /* input-field */
 .input {
-  padding: 4px;
+  padding: 8px;
   border-radius: 5px;
   border: 1px solid #d2d4d6;
   outline: none;
@@ -30,6 +31,7 @@ body {
   color: white;
   border-radius: 5px;
   border: 1px solid #458c58;
+  cursor: pointer;
   background-color: #458c58;
   transition: all 0.5s ease;
 }
@@ -39,15 +41,27 @@ body {
   background-color: white;
 }
 
-.gray_button{
+.gray_button {
   padding: 8px 20px;
   color: white;
   border-radius: 5px;
-  border: 1px solid #458c58;
+  border: 3px solid #458c58;
   background-color: #458c58;
   transition: all 0.5s ease;
 }
 .gray_button:hover {
   color: #458c58;
   background-color: white;
+}
+.disable-button {
+  padding: 8px 20px;
+  color: rgb(92, 93, 92);
+  background-color: #eeeeee;
+  border-radius: 20px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.disable-button:hover {
+
+  background-color: #cacbca;
 }

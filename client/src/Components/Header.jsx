@@ -13,13 +13,13 @@ const Header = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 shadow-lg">
+    <header className="fixed top-0 left-0 w-full z-50 shadow">
 
-      <div className="px-6 py-4 md:px-16 flex items-center justify-between bg-[#F5FBF1]">
+      <div className="px-6 py-4 md:px-16 flex items-center justify-between bg-white">
        
         <Link
           to="/"
-          className="Goldman text-3xl md:text-4xl font-bold text-[#458C58]"
+          className="Segoe text-3xl md:text-4xl font-bold text-[#458C58]"
         >
           GausejTech
         </Link>
@@ -32,13 +32,13 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/explore" className={`hover:text-[#458C58] ${isActive("/explore")}`}>
-              Explore
+            <Link to="/upload" className={`hover:text-[#458C58] ${isActive("/upload")}`}>
+              Upload
             </Link>
           </li>
           <li>
-            <Link to="/upload" className={`hover:text-[#45800b16aC58]  ${isActive("/upload")}`}>
-              Upload
+            <Link to="/profile" className={`hover:text-[#45800b16aC58]  ${isActive("/profile ")}`}>
+              Profile
             </Link>
           </li>
         </ul>
@@ -58,7 +58,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden px-6 pb-4 overflow-auto bg-[#F5FBF1]">
+        <div className="md:hidden px-6 pb-4 overflow-auto bg-white">
             <hr className="mb-5 text-[#458C58] opacity-45"/>
           <ul className="flex flex-col gap-3 text-lg">
             <li>
@@ -72,20 +72,20 @@ const Header = () => {
             </li>
             <li>
               <Link
-                to="/explore"
-                className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/explore")}`}
-                onClick={() => setMenuOpen(false)}
-              >
-                Explore
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/upload"
                 className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/upload")}`}
                 onClick={() => setMenuOpen(false)}
               >
                 Upload
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/profile"
+                className={`block hover:text-[#458C58] text-sm md:text-base ${isActive("/profile")}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Profile
               </Link>
             </li>
             <li>

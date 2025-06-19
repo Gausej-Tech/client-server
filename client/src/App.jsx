@@ -5,6 +5,7 @@ import "./App.css";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Home from "./Pages/HomePage/Home";
 import PageNotFound from "./Pages/PageNotFound";
+import Upload from "./Pages/UploadPage/Upload";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<Upload />} />
          <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
