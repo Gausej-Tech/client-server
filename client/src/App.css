@@ -1,5 +1,5 @@
 @import "tailwindcss";
-body{
+body {
   background-color: rgb(245, 251, 241);
 }
 
@@ -21,7 +21,7 @@ body{
 }
 
 .input:focus {
-  border: 1px solid green;
+  border: 1px solid #458c58;
 }
 
 /* buttons */
@@ -29,12 +29,25 @@ body{
   padding: 8px 20px;
   color: white;
   border-radius: 5px;
-  border: 1px solid green;
-  background-color: green;
+  border: 1px solid #458c58;
+  background-color: #458c58;
   transition: all 0.5s ease;
 }
 
 .green-button:hover {
-  color: green;
+  color: #458c58;
+  background-color: white;
+}
+
+.gray_button{
+  padding: 8px 20px;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #458c58;
+  background-color: #458c58;
+  transition: all 0.5s ease;
+}
+.gray_button:hover {
+  color: #458c58;
   background-color: white;
 }
