@@ -14,7 +14,7 @@ const Card = ({
   return (
     <div className="max-w-sm bg-white rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300">
       <div className="relative">
-        <img src={image} alt="Card" className="w-full h-48 object-cover" />
+        <img src={image} alt= {tag} className="w-full h-48 object-cover" />
         <button className="absolute cursor-pointer bottom-3 left-3 bg-[#373737] text-white text-sm px-3 py-1 rounded-md shadow-md hover:bg-gray-400 transition">
           {tag}
         </button>

@@ -4,7 +4,7 @@ const Section1 = () => {
   return (
     <div className="text-sm md:text-base  md:p-16 p-10">
       <p className=" text-3xl text-center md:text-4xl font-bold mb-5">
-        Share Your Professional Vision
+        Share Your Vision
       </p>
       <p className=" text-md text-gray-500 text-center md:text-lg max-w-xl mx-auto mb-8">
         Discover and share business ideas, startup pitches, product demos, and

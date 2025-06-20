@@ -1,7 +1,6 @@
 import React from "react";
-import Card from "./Cards";
-const cardImage = "https://source.unsplash.com/800x600/?technology,ai";
-const profileImage = "https://randomuser.me/api/portraits/men/32.jpg";
+import Card from "./Card";
+
 
 const Section2 = () => {
   const cardData = [
