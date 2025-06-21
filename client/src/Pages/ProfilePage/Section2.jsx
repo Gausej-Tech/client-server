@@ -31,7 +31,7 @@ const Section2 = () => {
     <>
       {/* Tab Nav */}
       <div className="shadow py-4">
-        <ul className="flex md:gap-16 gap-3 md:ms-20 ms-7 md:text-base text-sm text-gray-500">
+        <ul className="flex md:gap-16 gap-2 md:ms-20 ms-7 md:text-base text-sm text-gray-500">
           {["Videos", "About", "Playlists", "Followers", "Following"].map(
             (tab) => (
               <li key={tab}>

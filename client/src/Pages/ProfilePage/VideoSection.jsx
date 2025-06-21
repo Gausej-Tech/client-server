@@ -61,7 +61,7 @@ const VideoSection = () => {
           Showing {startIndex + 1}–{endIndex} of {totalCards} videos
         </p>
 
-        <div className="flex gap-2 items-center flex-wrap">
+        <div className="flex gap-1 md:gap-2 items-center flex-wrap">
           {/* Left Arrow */}
           <button
             onClick={() =>
@@ -81,7 +81,7 @@ const VideoSection = () => {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 text-sm md:text-base rounded ${
+                  className={`px-2 py-1 text-sm md:text-base rounded ${
                     currentPage === page
                       ? "bg-green-600 text-white"
                       : "bg-gray-200 hover:bg-gray-300"
