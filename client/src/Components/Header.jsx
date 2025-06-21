@@ -1,12 +1,11 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
-
+import logo from "/logo.png";
 const Header = ({ onSigninClick }) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const isLoggedIn = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const isActive = (path) =>
     location.pathname === path ? "text-[#458C58] font-semibold" : "";
@@ -18,8 +17,9 @@ const Header = ({ onSigninClick }) => {
       <div className="px-6 py-4 md:px-16 flex items-center justify-between">
         <Link
           to="/"
-          className="Segoe text-3xl md:text-4xl font-bold text-[#458C58]"
+          className="Segoe flex gap-3 text-3xl md:text-4xl font-bold text-gray-800"
         >
+          <img src="/logo.png" alt="Logo" className="w-12 h-12" />
           GausejTech
         </Link>
 
@@ -62,10 +62,7 @@ const Header = ({ onSigninClick }) => {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div
-          className="md:hidden text-2xl cursor-pointer"
-          onClick={toggleMenu}
-        >
+        <div className="md:hidden text-2xl cursor-pointer" onClick={toggleMenu}>
           {menuOpen ? <FiX /> : <FiMenu />}
         </div>
       </div>

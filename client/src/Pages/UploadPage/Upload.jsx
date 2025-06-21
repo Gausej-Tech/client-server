@@ -113,7 +113,7 @@ const Upload = () => {
             <option value="other">Other</option>
           </select>
           {/* tags */}
-          <p className="text-gray-500 mb-1">Description</p>
+          <p className="text-gray-500 mb-1">Tags</p>
           <input
             type="text"
             placeholder="Add tags seperated by comma"

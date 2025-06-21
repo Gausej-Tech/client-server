@@ -19,7 +19,7 @@ const Section1 = () => {
   });
 
   const handleSave = (updatedData) => {
-    setProfileData(updatedData); 
+    setProfileData(updatedData);
     setShowModal(false);
   };
 
@@ -33,9 +33,11 @@ const Section1 = () => {
 
           {/* info */}
           <div className="flex flex-col text-center sm:text-left">
-            <p className="font-semibold text-xl md:text-3xl">{profileData.name}</p>
+            <p className="font-semibold text-xl md:text-3xl">
+              {profileData.name}
+            </p>
             <p className="text-gray-500 text-sm md:text-base">
-             {profileData.title}
+              {profileData.title}
             </p>
 
             <div className="flex flex-wrap justify-center sm:justify-start items-center text-gray-500 gap-2 mt-1">
@@ -53,12 +55,18 @@ const Section1 = () => {
           <button type="submit" className="green-button">
             Follow
           </button>
+          <button
+            type="submit"
+            className="border border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300 px-4 py-2 rounded"
+          >
+            Message
+          </button>
           <div>
             {/* edit but you have to chage it  */}
-            <div>
+            {/* <div>
               <button
                 onClick={() => setShowModal(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md"
+                className="green-button"
               >
                 Edit Profile
               </button>
@@ -70,14 +78,12 @@ const Section1 = () => {
                   onSave={handleSave}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
       <hr className="text-gray-300 mb-5" />
-      <p className="text-gray-600 text-sm md:text-lg mb-4">
-        {profileData.bio}
-      </p>
+      <p className="text-gray-600 text-sm md:text-lg mb-4">{profileData.bio}</p>
       <div className=" flex md:flex-row flex-col text-sm md:text-lg gap-2   text-center md:gap-10 sm:text-left">
         <Link
           to="/profile"
