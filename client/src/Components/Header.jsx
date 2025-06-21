@@ -20,7 +20,7 @@ const Header = ({ onSigninClick }) => {
           className="Segoe flex gap-3 text-3xl md:text-4xl font-bold text-gray-800"
         >
           <img src="/logo.png" alt="Logo" className="w-12 h-12" />
-          GausejTech
+          Gausej
         </Link>
 
         {/* Desktop Nav */}
