@@ -6,8 +6,9 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Home from "./Pages/HomePage/Home";
 import PageNotFound from "./Pages/PageNotFound";
 import Upload from "./Pages/UploadPage/Upload";
-import Signin from "./Pages/SigninPage/Signin";
+
 import Profile from "./Pages/ProfilePage/Profile";
+import Video from "./Pages/VideoPage/Video";
 
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<Upload />} />
-        <Route path="/signin" element={<Signin />} />
+      
         <Route path="/profile" element={<Profile />} />
+         <Route path="/video" element={<Video />} />
          <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

@@ -52,7 +52,7 @@ const Section1 = () => {
 
         {/* buttons */}
         <div className="flex gap-3 justify-center md:justify-end">
-          <button type="submit" className="green-button">
+          {/* <button type="submit" className="green-button">
             Follow
           </button>
           <button
@@ -60,10 +60,10 @@ const Section1 = () => {
             className="border border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300 px-4 py-2 rounded"
           >
             Message
-          </button>
+          </button> */}
           <div>
             {/* edit but you have to chage it  */}
-            {/* <div>
+            <div>
               <button
                 onClick={() => setShowModal(true)}
                 className="green-button"
@@ -78,7 +78,7 @@ const Section1 = () => {
                   onSave={handleSave}
                 />
               )}
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

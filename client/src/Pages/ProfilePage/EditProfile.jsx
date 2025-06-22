@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import { Helmet } from "react-helmet-async";
 const EditProfile = ({ onClose, onSave, profile }) => {
   const [previewPic, setPreviewPic] = useState(profile.profilePic);
 
@@ -36,6 +36,9 @@ const EditProfile = ({ onClose, onSave, profile }) => {
       className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50"
       onClick={handleOverlayClick}
     >
+       <Helmet>
+        <title>Gausej - Edit Profile</title>
+      </Helmet>
       <div className="bg-white rounded-xl shadow-lg w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in">
         <div className="flex items-center border-gray-300 justify-between border-b px-6 py-4">
           <h2 className="text-xl font-semibold text-gray-800">Edit Profile</h2>

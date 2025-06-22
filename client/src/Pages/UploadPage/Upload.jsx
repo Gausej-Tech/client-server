@@ -5,7 +5,7 @@ import { FaArrowUpFromBracket, FaImage } from "react-icons/fa6";
 import { TbWorld } from "react-icons/tb";
 import { FiLink } from "react-icons/fi";
 import { IoLockClosedSharp } from "react-icons/io5";
-
+import { Helmet } from "react-helmet-async";
 const Upload = () => {
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
 
@@ -28,6 +28,9 @@ const Upload = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Gausej - Upload</title>
+      </Helmet>
       <div className="px-4 md:px-48 py-7">
         <div className="shadow rounded-2xl p-6">
           <p className="font-bold text-2xl">Upload Video</p>
@@ -113,7 +116,7 @@ const Upload = () => {
             <option value="other">Other</option>
           </select>
           {/* tags */}
-          <p className="text-gray-500 mb-1">Tags</p>
+          {/* <p className="text-gray-500 mb-1">Tags</p>
           <input
             type="text"
             placeholder="Add tags seperated by comma"
@@ -121,10 +124,10 @@ const Upload = () => {
           />
           <p className="text-gray-500 mb-7 text-sm">
             Add up to 10 tags to help viewers find your video
-          </p>
+          </p> */}
 
           {/* Visibility */}
-          <p className="text-gray-500 mb-1">Visibility</p>
+          {/* <p className="text-gray-500 mb-1">Visibility</p>
           <div className="space-y-2 mb-8">
             <label className="flex items-center gap-2 text-gray-500 ">
               <input
@@ -172,7 +175,7 @@ const Upload = () => {
                 <p className="text-sm">Only you can view your video</p>
               </p>
             </label>
-          </div>
+          </div> */}
 
           <hr className="text-gray-300 mb-5" />
 
