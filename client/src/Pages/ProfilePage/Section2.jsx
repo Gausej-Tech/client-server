@@ -14,14 +14,14 @@ const Section2 = () => {
     switch (activeTab) {
       case "Videos":
         return <VideoSection />;
-      case "About":
-        return <About />;
-      case "Playlists":
-        return <Playlists />;
-      case "Followers":
-        return <Followers />;
-      case "Following":
-        return <Following />;
+      // case "About":
+      //   return <About />;
+      // case "Playlists":
+      //   return <Playlists />;
+      // case "Followers":
+      //   return <Followers />;
+      // case "Following":
+      //   return <Following />;
       default:
         return null;
     }
@@ -32,7 +32,9 @@ const Section2 = () => {
       {/* Tab Nav */}
       <div className="shadow py-4">
         <ul className="flex md:gap-16 gap-2 md:ms-20 ms-7 md:text-base text-sm text-gray-500">
-          {["Videos", "About", "Playlists", "Followers", "Following"].map(
+          {["Videos", 
+          // "About", "Playlists", "Followers", "Following"
+        ].map(
             (tab) => (
               <li key={tab}>
                 <button
