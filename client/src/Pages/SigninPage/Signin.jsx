@@ -60,6 +60,9 @@ const Signin = ({ isOpen, onClose }) => {
           password: formData.password,
         });
         toast.success(res.data?.message || "Login successful!");
+        if (res.data?.user) {
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+        }
 
         resetForm();
         setTimeout(() => {
@@ -248,7 +251,7 @@ const Signin = ({ isOpen, onClose }) => {
               type="submit"
               className="bg-white py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer rounded text-[#458c58] w-full flex justify-center items-center gap-2"
               onClick={handleSubmit}
-              disabled={loading} // optional: disable button while loading
+              disabled={loading}
             >
               {loading ? (
                 <svg
