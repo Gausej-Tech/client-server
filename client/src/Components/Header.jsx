@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaChevronDown } from "react-icons/fa";
 import axios from "../utils/axios";
-
+import toast, { Toaster } from "react-hot-toast";
 const Header = ({ onSigninClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,29 +24,34 @@ const Header = ({ onSigninClick }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ Check login on mount (enable this)
   useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const res = await axios.get("/user/me");
-        setIsLoggedIn(!!res.data);
-      } catch (err) {
+    const checkLogin = () => {
+      const user = localStorage.getItem("user");
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
         setIsLoggedIn(false);
       }
     };
-
     checkLogin();
   }, []);
 
-  // ✅ Logout handler
   const handleLogout = async () => {
     try {
-      await axios.post("/auth/logout");
+      await axios.post("/auth/logout", {}, { withCredentials: true }); 
+
+      localStorage.removeItem("user");
+
       setIsLoggedIn(false);
       setMenuOpen(false);
-      navigate("/");
+      toast.success("Logout Successfully!");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
       console.error("Logout failed:", err);
+      toast.error("Logout failed");
     }
   };
 
@@ -55,7 +60,7 @@ const Header = ({ onSigninClick }) => {
 
   // ✅ Reusable profile dropdown
   const profileDropdown = (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-right" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
         className="green-button flex items-center gap-1"
@@ -64,7 +69,7 @@ const Header = ({ onSigninClick }) => {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+        <div className="absolute right-0 mt-2 w-24 rounded-md shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 z-50">
           <div className="py-1 text-sm text-gray-700">
             <Link
               to="/profile"
@@ -78,7 +83,7 @@ const Header = ({ onSigninClick }) => {
             </Link>
             <button
               onClick={handleLogout}
-              className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+              className="block w-full text-right px-4 py-2 hover:bg-gray-100"
             >
               Logout
             </button>
@@ -90,6 +95,7 @@ const Header = ({ onSigninClick }) => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 shadow bg-white text-sm md:text-base">
+      <Toaster />
       <div className="px-6 py-4 md:px-16 flex items-center justify-between">
         {/* Logo */}
         <Link
