@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Signin = ({ isOpen, onClose }) => {
   const [view, setView] = useState("login");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -39,6 +40,7 @@ const Signin = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (view === "signup") {
         const res = await axios.post("/auth/signup", {
@@ -46,37 +48,34 @@ const Signin = ({ isOpen, onClose }) => {
           email: formData.email,
           password: formData.password,
         });
-        console.log("SIGNUP PAYLOAD", {
-          fullName: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-        });
-        console.log("SIGNUP RESPONSE", res.data);
         toast.success(res.data?.msg || "Signup successful!");
+
         resetForm();
         setTimeout(() => {
           setView("login");
-        }, 3000);
+        }, 2000);
       } else if (view === "login") {
         const res = await axios.post("/auth/login", {
           email: formData.email,
           password: formData.password,
         });
         toast.success(res.data?.message || "Login successful!");
+
         resetForm();
         setTimeout(() => {
           onClose();
           window.location.reload();
-        }, 3000);
+        }, 2000);
       } else if (view === "forgotEmail") {
         const res = await axios.post("/auth/forgot-password", {
           email: formData.email,
         });
         toast.success(res.data?.msg || "OTP sent!");
+
         resetForm();
         setTimeout(() => {
           setView("forgotOTP");
-        }, 3000);
+        }, 2000);
       } else if (view === "forgotOTP") {
         const res = await axios.post("/auth/verify-reset-otp", {
           otp: formData.otp,
@@ -93,7 +92,7 @@ const Signin = ({ isOpen, onClose }) => {
 
         setTimeout(() => {
           setView("forgotNew");
-        }, 3000);
+        }, 2000);
       } else if (view === "forgotNew") {
         if (formData.newPassword !== formData.confirmPassword) {
           toast.error("Passwords do not match");
@@ -105,10 +104,11 @@ const Signin = ({ isOpen, onClose }) => {
           newPassword: formData.newPassword,
         });
         toast.success(res.data?.message || "Password reset successful!");
+
         resetForm();
         setTimeout(() => {
           setView("login");
-        }, 3000);
+        }, 2000);
       }
     } catch (err) {
       const msg =
@@ -116,7 +116,10 @@ const Signin = ({ isOpen, onClose }) => {
         err.response?.data?.message ||
         "Something went wrong.";
       toast.error(msg);
+
       resetForm();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -139,8 +142,8 @@ const Signin = ({ isOpen, onClose }) => {
       </Helmet>
       <Toaster />
 
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
-        <div className="bg-[#458c58] rounded-2xl w-full max-w-sm p-6 relative shadow-xl text-sm md:text-base px-3">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm px-3 flex justify-center items-center z-50">
+        <div className="bg-[#458c58] rounded-2xl w-full max-w-sm  p-6 relative shadow-xl text-sm md:text-base px-3">
           <button
             className="absolute top-2 right-3 text-white text-2xl cursor-pointer"
             onClick={() => {
@@ -183,7 +186,7 @@ const Signin = ({ isOpen, onClose }) => {
                   type="email"
                   name="email"
                   placeholder="Email"
-                   value={formData.email}
+                  value={formData.email}
                   className="border px-4 py-2 rounded border-gray-300 text-gray-800"
                   onChange={handleChange}
                 />
@@ -197,7 +200,7 @@ const Signin = ({ isOpen, onClose }) => {
                   type="password"
                   name="password"
                   placeholder="Password"
-                   value={formData.password}
+                  value={formData.password}
                   className="border px-4 py-2 rounded border-gray-300 text-gray-800"
                   onChange={handleChange}
                 />
@@ -211,7 +214,7 @@ const Signin = ({ isOpen, onClose }) => {
                   type="text"
                   name="otp"
                   placeholder="6-digit OTP"
-                   value={formData.otp}
+                  value={formData.otp}
                   className="border px-4 py-2 rounded border-gray-300 text-gray-800"
                   onChange={handleChange}
                 />
@@ -225,7 +228,7 @@ const Signin = ({ isOpen, onClose }) => {
                   type="password"
                   name="newPassword"
                   placeholder="New Password"
-                   value={formData.newPassword}
+                  value={formData.newPassword}
                   className="border px-4 py-2 rounded border-gray-300 text-gray-800"
                   onChange={handleChange}
                 />
@@ -233,7 +236,7 @@ const Signin = ({ isOpen, onClose }) => {
                 <input
                   type="password"
                   name="confirmPassword"
-                   value={formData.confirmPassword}
+                  value={formData.confirmPassword}
                   placeholder="Confirm Password"
                   className="border px-4 py-2 rounded border-gray-300 text-gray-800"
                   onChange={handleChange}
@@ -243,18 +246,42 @@ const Signin = ({ isOpen, onClose }) => {
 
             <button
               type="submit"
-              className="bg-white py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer rounded text-[#458c58] w-full"
+              className="bg-white py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer rounded text-[#458c58] w-full flex justify-center items-center gap-2"
               onClick={handleSubmit}
+              disabled={loading} // optional: disable button while loading
             >
-              {view === "signup"
-                ? "Sign Up"
-                : view === "login"
-                ? "Login"
-                : view === "forgotEmail"
-                ? "Send OTP"
-                : view === "forgotOTP"
-                ? "Verify OTP"
-                : "Reset Password"}
+              {loading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-[#458c58]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 11-8 8z"
+                  />
+                </svg>
+              ) : view === "signup" ? (
+                "Sign Up"
+              ) : view === "login" ? (
+                "Login"
+              ) : view === "forgotEmail" ? (
+                "Send OTP"
+              ) : view === "forgotOTP" ? (
+                "Verify OTP"
+              ) : (
+                "Reset Password"
+              )}
             </button>
 
             {view === "login" && (
