@@ -35,7 +35,9 @@ const SearchResult = () => {
 
       try {
         setLoading(true);
-        const res = await axios.get(`/user?category=${encodeURIComponent(category)}`);
+        const res = await axios.get(
+          `/user?category=${encodeURIComponent(category)}`
+        );
         setVideos(res.data);
         setCurrentPage(1);
         setPageWindowStart(0);
@@ -69,7 +71,8 @@ const SearchResult = () => {
     <Layout>
       <div className="py-10 px-6 md:px-20 text-sm md:text-base">
         <h2 className="text-center text-3xl md:text-4xl font-bold mb-10">
-          Search Results for: <span className="text-green-700">"{category}"</span>
+          Search Results for:{" "}
+          <span className="text-green-700">"{category}"</span>
         </h2>
 
         {loading ? (
@@ -77,20 +80,21 @@ const SearchResult = () => {
         ) : videos.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {currentVideos.map((video) => (
-                <Card
-                  key={video._id}
-                  image={video.cloudinaryUrl}
-                  tag={video.category}
-                  title={video.title}
-                  description={video.description}
-                  profileImage={
-                    video.userId?.profilePhoto ||
-                    "https://randomuser.me/api/portraits/lego/2.jpg"
-                  }
-                  profileName={video.userId?.fullName}
-                />
-              ))}
+              {Array.isArray(categoryOptions) &&
+                currentVideos.map((video) => (
+                  <Card
+                    key={video._id}
+                    image={video.cloudinaryUrl}
+                    tag={video.category}
+                    title={video.title}
+                    description={video.description}
+                    profileImage={
+                      video.userId?.profilePhoto ||
+                      "https://randomuser.me/api/portraits/lego/2.jpg"
+                    }
+                    profileName={video.userId?.fullName}
+                  />
+                ))}
             </div>
 
             {totalPages > 1 && (
@@ -102,7 +106,9 @@ const SearchResult = () => {
                 <div className="flex gap-1 md:gap-2 items-center flex-wrap">
                   <button
                     onClick={() =>
-                      setPageWindowStart(Math.max(pageWindowStart - visiblePages, 0))
+                      setPageWindowStart(
+                        Math.max(pageWindowStart - visiblePages, 0)
+                      )
                     }
                     disabled={pageWindowStart === 0}
                     className="px-2 py-1 text-sm md:text-base rounded disabled:opacity-20"
@@ -110,24 +116,26 @@ const SearchResult = () => {
                     <FaChevronLeft />
                   </button>
 
-                  {[...Array(Math.min(visiblePages, totalPages - pageWindowStart))].map(
-                    (_, i) => {
-                      const page = pageWindowStart + i + 1;
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={`px-2 py-1 text-sm md:text-base rounded ${
-                            currentPage === page
-                              ? "bg-green-600 text-white"
-                              : "bg-gray-200 hover:bg-gray-300"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      );
-                    }
-                  )}
+                  {[
+                    ...Array(
+                      Math.min(visiblePages, totalPages - pageWindowStart)
+                    ),
+                  ].map((_, i) => {
+                    const page = pageWindowStart + i + 1;
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`px-2 py-1 text-sm md:text-base rounded ${
+                          currentPage === page
+                            ? "bg-green-600 text-white"
+                            : "bg-gray-200 hover:bg-gray-300"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    );
+                  })}
 
                   <button
                     onClick={() =>

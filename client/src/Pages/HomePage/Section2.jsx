@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import axios from "../../utils/axios"; 
+import axios from "../../utils/axios";
 
 const categories = [
   "Startup Pitch",
@@ -70,20 +70,21 @@ const Section2 = () => {
               All
             </button>
           </li>
-          {categories.map((category) => (
-            <li key={category}>
-              <button
-                onClick={() => setActiveTab(category)}
-                className={`px-5 py-2 rounded-full transition-all duration-300 ${
-                  activeTab === category
-                    ? "bg-green-700 text-white"
-                    : "disable-button"
-                }`}
-              >
-                {category}
-              </button>
-            </li>
-          ))}
+          {Array.isArray(categories) &&
+            categories.map((category) => (
+              <li key={category}>
+                <button
+                  onClick={() => setActiveTab(category)}
+                  className={`px-5 py-2 rounded-full transition-all duration-300 ${
+                    activeTab === category
+                      ? "bg-green-700 text-white"
+                      : "disable-button"
+                  }`}
+                >
+                  {category}
+                </button>
+              </li>
+            ))}
         </ul>
       </div>
 
@@ -93,7 +94,7 @@ const Section2 = () => {
           <p className="text-center text-gray-600 col-span-full">
             Loading videos...
           </p>
-        ) : videosToShow.length > 0 ? (
+        ) : Array.isArray(videosToShow) && videosToShow.length > 0 ? (
           videosToShow.map((video) => (
             <Card
               key={video._id}
