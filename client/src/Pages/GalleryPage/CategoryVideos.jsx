@@ -75,25 +75,26 @@ const CategoryVideos = ({ category }) => {
   return (
     <>
       <div className="grid grid-cols-1 p-10 text-sm md:text-base sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-20">
-        {currentCards.map((video) => (
-          <Card
-            key={video._id}
-            image={video.cloudinaryUrl}
-            tag={video.category}
-            title={video.title}
-            description={video.description}
-            posted={formatDistanceToNow(new Date(video.createdAt), {
-              addSuffix: true,
-            })}
-            profileImage={
-              video.userId?.profilePhoto ||
-              "https://randomuser.me/api/portraits/lego/2.jpg"
-            }
-            profileName={video.userId?.fullName}
-            views={video.views}
-            status={video.isApproved}
-          />
-        ))}
+        {Array.isArray(currentCards) &&
+          currentCards.map((video) => (
+            <Card
+              key={video._id}
+              image={video.cloudinaryUrl}
+              tag={video.category}
+              title={video.title}
+              description={video.description}
+              posted={formatDistanceToNow(new Date(video.createdAt), {
+                addSuffix: true,
+              })}
+              profileImage={
+                video.userId?.profilePhoto ||
+                "https://randomuser.me/api/portraits/lego/2.jpg"
+              }
+              profileName={video.userId?.fullName}
+              views={video.views}
+              status={video.isApproved}
+            />
+          ))}
       </div>
 
       {/* Pagination Controls */}
@@ -114,24 +115,24 @@ const CategoryVideos = ({ category }) => {
               <FaChevronLeft />
             </button>
 
-            {[...Array(Math.min(visiblePages, totalPages - pageWindowStart))].map(
-              (_, i) => {
-                const page = pageWindowStart + i + 1;
-                return (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-2 py-1 text-sm md:text-base rounded ${
-                      currentPage === page
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-200 hover:bg-gray-300"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                );
-              }
-            )}
+            {[
+              ...Array(Math.min(visiblePages, totalPages - pageWindowStart)),
+            ].map((_, i) => {
+              const page = pageWindowStart + i + 1;
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-2 py-1 text-sm md:text-base rounded ${
+                    currentPage === page
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
 
             <button
               onClick={() =>

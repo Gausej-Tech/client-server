@@ -23,7 +23,8 @@ const Section1 = () => {
       (option) => option.toLowerCase() === query?.toLowerCase()
     );
 
-  const defaultCategory = findMatchingCategory(queryCategory) || "Startup Pitch";
+  const defaultCategory =
+    findMatchingCategory(queryCategory) || "Startup Pitch";
 
   const [activeTab, setActiveTab] = useState(defaultCategory);
 
@@ -40,20 +41,21 @@ const Section1 = () => {
         </p>
 
         <ul className="flex flex-wrap md:text-base text-sm justify-center gap-3 md:gap-4">
-          {categoryOptions.map((tab) => (
-            <li key={tab}>
-              <button
-                onClick={() => setActiveTab(tab)}
-                className={`px-5 py-2 rounded-full text-sm md:text-base transition-all duration-300 ${
-                  activeTab === tab
-                    ? "bg-green-700 text-white"
-                    : "disable-button"
-                }`}
-              >
-                {tab}
-              </button>
-            </li>
-          ))}
+          {Array.isArray(categoryOptions) &&
+            categoryOptions.map((tab) => (
+              <li key={tab}>
+                <button
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-5 py-2 rounded-full text-sm md:text-base transition-all duration-300 ${
+                    activeTab === tab
+                      ? "bg-green-700 text-white"
+                      : "disable-button"
+                  }`}
+                >
+                  {tab}
+                </button>
+              </li>
+            ))}
         </ul>
       </div>
 

@@ -97,68 +97,73 @@ const AdminSectionForPendingVideos = () => {
         <p className="text-gray-600">No pending videos.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {currentCards.map((video) => (
-            <div
-              key={video._id}
-              className="border rounded-xl p-4 shadow-md bg-white"
-            >
-              <video
-                src={video.cloudinaryUrl}
-                controls
-                className="w-full rounded-lg mb-3"
-              ></video>
-              <p className="text-sm text-gray-500">{video.category}</p>
-              <h3 className="font-bold text-base mt-1">{video.title}</h3>
-              <p className="text-gray-600 text-sm break-words overflow-hidden">
-                {video.description.length > 20 ? (
-                  <>
-                    {expanded[video._id]
-                      ? video.description
-                      : video.description.slice(0, 20) + "..."}
-                    <button
-                      onClick={() => toggleExpanded(video._id)}
-                      className="text-blue-600 text-xs ml-1"
-                    >
-                      {expanded[video._id] ? "Show less" : "Show more"}
-                    </button>
-                  </>
-                ) : (
-                  video.description
-                )}
-              </p>
-              <div className="flex items-center gap-2 mt-3">
-                <img
-                  src={
-                    video.userId?.profilePhoto ||
-                    "https://randomuser.me/api/portraits/lego/2.jpg"
-                  }
-                  alt="profile"
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="text-sm">{video.userId?.fullName}</span>
+          {Array.isArray(currentCards) &&
+            currentCards.map((video) => (
+              <div
+                key={video._id}
+                className="border rounded-xl p-4 shadow-md bg-white"
+              >
+                <video
+                  src={video.cloudinaryUrl}
+                  controls
+                  className="w-full rounded-lg mb-3"
+                ></video>
+                <p className="text-sm text-gray-500">{video.category}</p>
+                <h3 className="font-bold text-base mt-1">{video.title}</h3>
+
+                <p className="text-gray-600 text-sm break-words overflow-hidden">
+                  {video.description.length > 20 ? (
+                    <>
+                      {expanded[video._id]
+                        ? video.description
+                        : video.description.slice(0, 20) + "..."}
+                      <button
+                        onClick={() => toggleExpanded(video._id)}
+                        className="text-blue-600 text-xs ml-1"
+                      >
+                        {expanded[video._id] ? "Show less" : "Show more"}
+                      </button>
+                    </>
+                  ) : (
+                    video.description
+                  )}
+                </p>
+
+                <div className="flex items-center gap-2 mt-3">
+                  <img
+                    src={
+                      video.userId?.profilePhoto ||
+                      "https://randomuser.me/api/portraits/lego/2.jpg"
+                    }
+                    alt="profile"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <span className="text-sm">{video.userId?.fullName}</span>
+                </div>
+
+                <p className="text-xs text-gray-400 mt-1">
+                  Uploaded{" "}
+                  {formatDistanceToNow(new Date(video.createdAt), {
+                    addSuffix: true,
+                  })}
+                </p>
+
+                <div className="flex justify-between mt-4 gap-2">
+                  <LoadingButton
+                    label="Approved"
+                    onClick={() => handleApprove(video._id)}
+                    isLoading={approvingVideoId === video._id}
+                    className="bg-green-500 cursor-pointer hover:bg-green-600"
+                  />
+                  <LoadingButton
+                    label="Reject"
+                    onClick={() => handleReject(video._id)}
+                    isLoading={rejectingVideoId === video._id}
+                    className="bg-red-500 cursor-pointer hover:bg-red-600"
+                  />
+                </div>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
-                Uploaded{" "}
-                {formatDistanceToNow(new Date(video.createdAt), {
-                  addSuffix: true,
-                })}
-              </p>
-              <div className="flex justify-between mt-4 gap-2">
-                <LoadingButton
-                  label="Approved"
-                  onClick={() => handleApprove(video._id)}
-                  isLoading={approvingVideoId === video._id}
-                  className="bg-green-500 cursor-pointer hover:bg-greeen-600"
-                />
-                <LoadingButton
-                  label="Reject"
-                  onClick={() => handleReject(video._id)}
-                  isLoading={rejectingVideoId === video._id}
-                  className="bg-red-500 cursor-pointer hover:bg-red-600"
-                />
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       )}
 

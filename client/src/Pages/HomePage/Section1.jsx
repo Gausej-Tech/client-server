@@ -37,7 +37,9 @@ const Section1 = () => {
       }
 
       try {
-        const res = await axios.get(`/user/suggestions?query=${encodeURIComponent(trimmed)}`);
+        const res = await axios.get(
+          `/user/suggestions?query=${encodeURIComponent(trimmed)}`
+        );
         setSuggestions(res.data || []);
         setShowSuggestions(true);
       } catch (err) {
@@ -93,15 +95,16 @@ const Section1 = () => {
         {/* Suggestions dropdown */}
         {showSuggestions && suggestions.length > 0 && (
           <ul className="absolute top-full mt-1 bg-white border border-gray-200 rounded-md w-[600px] max-h-60 overflow-y-auto shadow-lg z-10">
-            {suggestions.map((sugg, index) => (
-              <li
-                key={index}
-                onClick={() => handleSuggestionClick(sugg)}
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left text-sm"
-              >
-                {sugg}
-              </li>
-            ))}
+            {Array.isArray(suggestions) &&
+              suggestions.map((sugg, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSuggestionClick(sugg)}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left text-sm"
+                >
+                  {sugg}
+                </li>
+              ))}
           </ul>
         )}
       </div>
