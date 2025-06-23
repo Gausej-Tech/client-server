@@ -8,6 +8,7 @@ const Section1 = () => {
   const queryCategory = queryParams.get("category");
 
   const categoryOptions = [
+    "All",
     "Startup Pitch",
     "Product Demo",
     "Business Idea",
@@ -24,7 +25,7 @@ const Section1 = () => {
     );
 
   const defaultCategory =
-    findMatchingCategory(queryCategory) || "Startup Pitch";
+    findMatchingCategory(queryCategory) || "All";
 
   const [activeTab, setActiveTab] = useState(defaultCategory);
 

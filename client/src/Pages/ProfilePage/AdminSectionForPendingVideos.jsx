@@ -150,7 +150,7 @@ const AdminSectionForPendingVideos = () => {
 
                 <div className="flex justify-between mt-4 gap-2">
                   <LoadingButton
-                    label="Approved"
+                    label="Approve"
                     onClick={() => handleApprove(video._id)}
                     isLoading={approvingVideoId === video._id}
                     className="bg-green-500 cursor-pointer hover:bg-green-600"
