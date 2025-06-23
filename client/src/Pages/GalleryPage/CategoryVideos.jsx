@@ -98,7 +98,7 @@ const CategoryVideos = ({ category }) => {
       </div>
 
       {/* Pagination Controls */}
-      {totalPages > 1 && (
+      {totalCards > cardsPerPage && currentCards.length > 0 && (
         <div className="flex flex-col md:flex-row justify-between items-center px-4 md:px-20 pb-10 gap-4">
           <p className="text-gray-600 text-sm md:text-base">
             Showing {startIndex + 1}–{endIndex} of {totalCards} videos
