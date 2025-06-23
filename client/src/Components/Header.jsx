@@ -4,6 +4,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { FaChevronDown } from "react-icons/fa";
 import axios from "../utils/axios";
 import toast, { Toaster } from "react-hot-toast";
+
 const Header = ({ onSigninClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Header = ({ onSigninClick }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("/auth/logout"); 
+      await axios.post("/auth/logout");
 
       localStorage.removeItem("user");
 
@@ -57,6 +58,14 @@ const Header = ({ onSigninClick }) => {
 
   const isActive = (path) =>
     location.pathname === path ? "text-[#458C58] font-semibold" : "";
+
+  const handleUploadClick = () => {
+    if (isLoggedIn) {
+      navigate("/upload");
+    } else {
+      toast.error("You are not logged in. Please login first to upload!");
+    }
+  };
 
   // ✅ Reusable profile dropdown
   const profileDropdown = (
@@ -114,12 +123,14 @@ const Header = ({ onSigninClick }) => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/upload"
-              className={`hover:text-[#458C58] ${isActive("/upload")}`}
+            <span
+              onClick={handleUploadClick}
+              className={`cursor-pointer hover:text-[#458C58] ${isActive(
+                "/upload"
+              )}`}
             >
               Upload
-            </Link>
+            </span>
           </li>
           <li>
             <Link
@@ -166,13 +177,14 @@ const Header = ({ onSigninClick }) => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/upload"
-                className={`block hover:text-[#458C58] ${isActive("/upload")}`}
-                onClick={() => setMenuOpen(false)}
+              <span
+                onClick={handleUploadClick}
+                className={`cursor-pointer hover:text-[#458C58] ${isActive(
+                  "/upload"
+                )}`}
               >
                 Upload
-              </Link>
+              </span>
             </li>
             <li>
               <Link
