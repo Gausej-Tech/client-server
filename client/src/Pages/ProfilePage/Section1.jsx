@@ -17,7 +17,7 @@ const Section1 = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("/user/profile", { withCredentials: true });
+        const res = await axios.get("/user/profile");
         setProfileData(res.data.user);
       } catch (error) {
         console.error(
@@ -84,7 +84,7 @@ const Section1 = () => {
               {profileData.title}
             </p>
 
-            <div className="flex flex-wrap justify-center sm:justify-start items-center text-gray-500 gap-2 mt-1">
+            <div className="flex flex-wrap justify-center sm:justify-start items-center text-gray-500 gap-1 mt-1">
               <p>
                 Joined{" "}
                 {new Date(profileData.createdAt).toLocaleString("en-US", {
@@ -94,15 +94,19 @@ const Section1 = () => {
               </p>
 
               <GoDotFill className="" />
-              <p>12 Videos</p>
-              <GoDotFill className=" " />
-              <p>24.1k Followers</p>
+              <p> {profileData.videoCount} <span>Videos</span></p>
+
+              {/* followers */}
+              {/* <GoDotFill className=" " />
+              <p>24.1k Followers</p> */}
             </div>
           </div>
         </div>
 
         {/* buttons */}
         <div className="flex gap-3 justify-center md:justify-end">
+
+          {/* follow and message button */}
           {/* <button type="submit" className="green-button">
             Follow
           </button>

@@ -1,42 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Card from "../HomePage/Card";
+import axios from "../../utils/axios";
 import { formatDistanceToNow } from "date-fns";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import Card from "./Card";
-import axios from "../../utils/axios";
 
-const VideoSection = () => {
+const CategoryVideos = ({ category }) => {
   const visiblePages = 5;
-  const [cardsPerPage, setCardsPerPage] = useState(4); // Default for desktop
 
   const [videos, setVideos] = useState([]);
+  const [cardsPerPage, setCardsPerPage] = useState(4); // default for desktop
   const [currentPage, setCurrentPage] = useState(1);
   const [pageWindowStart, setPageWindowStart] = useState(0);
+  const [loading, setLoading] = useState(true);
 
+  // Responsive cards per page
   useEffect(() => {
     const updateCardsPerPage = () => {
       setCardsPerPage(window.innerWidth < 640 ? 1 : 4);
     };
 
-    updateCardsPerPage(); // Initial check
+    updateCardsPerPage();
     window.addEventListener("resize", updateCardsPerPage);
     return () => window.removeEventListener("resize", updateCardsPerPage);
   }, []);
 
+  // Fetch videos
   useEffect(() => {
     const fetchVideos = async () => {
+      setLoading(true);
       try {
-        const res = await axios.get("/user/my-videos");
-        if (res.data.success) {
-          setVideos(res.data.videos);
-        }
+        const endpoint =
+          category === "All"
+            ? "/user"
+            : `/user?category=${encodeURIComponent(category)}`;
+        const res = await axios.get(endpoint);
+        setVideos(res.data);
+        setCurrentPage(1);
+        setPageWindowStart(0);
       } catch (err) {
         console.error("Error fetching videos:", err);
+        setVideos([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchVideos();
-  }, []);
+  }, [category]);
 
+  const totalCards = videos.length;
+  const totalPages = Math.ceil(totalCards / cardsPerPage);
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = Math.min(startIndex + cardsPerPage, totalCards);
+  const currentCards = videos.slice(startIndex, endIndex);
+
+  // Adjust page window
   useEffect(() => {
     const windowEnd = pageWindowStart + visiblePages;
     if (currentPage - 1 < pageWindowStart) {
@@ -46,22 +64,20 @@ const VideoSection = () => {
     }
   }, [currentPage]);
 
-  const totalCards = videos.length;
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = Math.min(startIndex + cardsPerPage, totalCards);
-  const currentCards = videos.slice(startIndex, endIndex);
+  if (loading) {
+    return <p className="text-center py-10">Loading videos...</p>;
+  }
+
+  if (videos.length === 0) {
+    return <p className="text-center py-10">No videos found in "{category}"</p>;
+  }
 
   return (
     <>
-      <p className="text-center md:text-start md:ms-20 py-5 text-xl md:text-3xl font-semibold">
-        Videos
-      </p>
-
       <div className="grid grid-cols-1 p-10 text-sm md:text-base sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-20">
-        {currentCards.map((video, index) => (
+        {currentCards.map((video) => (
           <Card
-            key={video._id || index}
+            key={video._id}
             image={video.cloudinaryUrl}
             tag={video.category}
             title={video.title}
@@ -69,6 +85,12 @@ const VideoSection = () => {
             posted={formatDistanceToNow(new Date(video.createdAt), {
               addSuffix: true,
             })}
+            profileImage={
+              video.userId?.profilePhoto ||
+              "https://randomuser.me/api/portraits/lego/2.jpg"
+            }
+            profileName={video.userId?.fullName}
+            views={video.views}
             status={video.isApproved}
           />
         ))}
@@ -129,4 +151,4 @@ const VideoSection = () => {
   );
 };
 
-export default VideoSection;
+export default CategoryVideos;

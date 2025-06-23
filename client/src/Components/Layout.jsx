@@ -8,7 +8,7 @@ const Layout = ({children}) => {
     const [showSigninModal, setShowSigninModal] = useState(false);
   return (
     <div>
-      <Header onSigninClick={() => setShowSigninModal(true)} />
+       <Header onSigninClick={() => setShowSigninModal(true)} />
       <Signin isOpen={showSigninModal} onClose={() => setShowSigninModal(false)} />
       <main className="pt-[80px] min-h-[90vh]">{children}</main>
       <Footer />

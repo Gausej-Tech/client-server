@@ -8,7 +8,8 @@ import PageNotFound from "./Pages/PageNotFound";
 import Upload from "./Pages/UploadPage/Upload";
 
 import Profile from "./Pages/ProfilePage/Profile";
-import Video from "./Pages/VideoPage/Video";
+import SearchResult from "./Pages/HomePage/SearchResult";
+import Gallery from "./Pages/GalleryPage/Gallery";
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
         <Route path="/upload" element={<Upload />} />
       
         <Route path="/profile" element={<Profile />} />
-         <Route path="/video" element={<Video />} />
+         <Route path="/gallery" element={<Gallery />} />
+          <Route path="/video" element={<SearchResult />} />
          <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

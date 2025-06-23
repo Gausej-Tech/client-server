@@ -1,86 +1,118 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import axios from "../../utils/axios"; 
 
+const categories = [
+  "Startup Pitch",
+  "Product Demo",
+  "Business Idea",
+  "Promotional",
+  "Podcast",
+  "Tutorial",
+  "Other",
+];
 
 const Section2 = () => {
-  const cardData = [
-    {
-      image: "https://source.unsplash.com/800x600/?technology,ai",
-      tag: "AI",
-      title: "Revolutionary AI Solution for Small Businesses",
-      description:
-        "Our AI platform helps small businesses automate customer service with minimal setup.",
-      profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-      profileName: "John Doe",
-      views: "1.2K",
-      likes: "340",
-    },
-    {
-      image: "https://source.unsplash.com/800x600/?startup,tech",
-      tag: "Startup",
-      title: "Empowering Startups with Smart Tools",
-      description: "Tools built to scale your startup faster and smarter.",
-      profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
-      profileName: "Jane Smith",
-      views: "980",
-      likes: "270",
-    },
-    {
-      image: "https://source.unsplash.com/800x600/?data,analytics",
-      tag: "Analytics",
-      title: "Data-Driven Decisions Made Easy",
-      description:
-        "Use analytics to understand your audience and boost performance.",
-      profileImage: "https://randomuser.me/api/portraits/men/45.jpg",
-      profileName: "Mike Adams",
-      views: "2.3K",
-      likes: "580",
-    },
-  ];
+  const [videosByCategory, setVideosByCategory] = useState({});
+  const [latestVideos, setLatestVideos] = useState([]);
+  const [activeTab, setActiveTab] = useState("All");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      setLoading(true);
+      const data = {};
+
+      try {
+        const res = await axios.get("/user/latest");
+        setLatestVideos(res.data);
+      } catch (err) {
+        console.error("Error fetching all latest videos", err);
+        setLatestVideos([]);
+      }
+
+      for (const category of categories) {
+        try {
+          const res = await axios.get(
+            `/user/latest?category=${encodeURIComponent(category)}`
+          );
+          data[category] = res.data;
+        } catch (err) {
+          console.error(`Error fetching videos for ${category}`, err);
+          data[category] = [];
+        }
+      }
+
+      setVideosByCategory(data);
+      setLoading(false);
+    };
+
+    fetchVideos();
+  }, []);
+
+  const videosToShow =
+    activeTab === "All" ? latestVideos : videosByCategory[activeTab] || [];
+
   return (
     <div className="py-6">
-      <div className="px-4 py-10 text-sm">
-        <ul className="flex flex-wrap text-sm md:text-base justify-center gap-x-3 gap-y-4">
+      {/* Tabs */}
+      <div className="px-4 py-10">
+        <ul className="flex flex-wrap justify-center gap-3 md:gap-4">
           <li>
-            <button className="px-6 py-1.5 bg-[#458C58] text-white rounded-3xl cursor-pointer">
+            <button
+              onClick={() => setActiveTab("All")}
+              className={`px-5 py-2 rounded-full transition-all duration-300 ${
+                activeTab === "All"
+                  ? "bg-green-700 text-white"
+                  : "disable-button"
+              }`}
+            >
               All
             </button>
           </li>
-          <li>
-            <button className="disable-button">Startup Pitch</button>
-          </li>
-          <li>
-            <button className="disable-button">Product Demo</button>
-          </li>
-          <li>
-            <button className="disable-button">Business Idea</button>
-          </li>
-          <li>
-            <button className="disable-button">Promotional</button>
-          </li>
-          <li>
-            <button className="disable-button">Podcast</button>
-          </li>
-          <li>
-            <button className="disable-button">Other</button>
-          </li>
+          {categories.map((category) => (
+            <li key={category}>
+              <button
+                onClick={() => setActiveTab(category)}
+                className={`px-5 py-2 rounded-full transition-all duration-300 ${
+                  activeTab === category
+                    ? "bg-green-700 text-white"
+                    : "disable-button"
+                }`}
+              >
+                {category}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div className="grid grid-cols-1 p-10 text-sm md:text-base sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-32">
-        {cardData.map((card, index) => (
-          <Card
-            key={index}
-            image={card.image}
-            tag={card.tag}
-            title={card.title}
-            description={card.description}
-            profileImage={card.profileImage}
-            profileName={card.profileName}
-            views={card.views}
-            likes={card.likes}
-          />
-        ))}
+      {/* Video Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-32 pb-10">
+        {loading ? (
+          <p className="text-center text-gray-600 col-span-full">
+            Loading videos...
+          </p>
+        ) : videosToShow.length > 0 ? (
+          videosToShow.map((video) => (
+            <Card
+              key={video._id}
+              image={video.cloudinaryUrl}
+              tag={video.category}
+              title={video.title}
+              description={video.description}
+              profileImage={
+                video.userId?.profilePhoto ||
+                "https://randomuser.me/api/portraits/lego/2.jpg"
+              }
+              profileName={video.userId?.fullName}
+            />
+          ))
+        ) : (
+          <p className="text-center text-gray-600 col-span-full">
+            No videos found for this category.
+          </p>
+        )}
       </div>
     </div>
   );

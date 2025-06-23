@@ -38,7 +38,7 @@ const Header = ({ onSigninClick }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("/auth/logout", {}, { withCredentials: true }); 
+      await axios.post("/auth/logout"); 
 
       localStorage.removeItem("user");
 
@@ -123,10 +123,10 @@ const Header = ({ onSigninClick }) => {
           </li>
           <li>
             <Link
-              to="/video"
-              className={`hover:text-[#458C58] ${isActive("/video")}`}
+              to="/gallery"
+              className={`hover:text-[#458C58] ${isActive("/gallery")}`}
             >
-              Videos
+              Gallery
             </Link>
           </li>
         </ul>
@@ -176,11 +176,11 @@ const Header = ({ onSigninClick }) => {
             </li>
             <li>
               <Link
-                to="/video"
-                className={`block hover:text-[#458C58] ${isActive("/video")}`}
+                to="/gallery"
+                className={`block hover:text-[#458C58] ${isActive("/gallery")}`}
                 onClick={() => setMenuOpen(false)}
               >
-                Videos
+                Gallery
               </Link>
             </li>
             <li>
