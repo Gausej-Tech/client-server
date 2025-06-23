@@ -5,6 +5,7 @@ import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import axios from "../../utils/axios";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingButton from "../../Components/LoadingButton";
 
 const Signin = ({ isOpen, onClose }) => {
   const [view, setView] = useState("login");
@@ -247,45 +248,23 @@ const Signin = ({ isOpen, onClose }) => {
               </>
             )}
 
-            <button
-              type="submit"
-              className="bg-white py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer rounded text-[#458c58] w-full flex justify-center items-center gap-2"
+            <LoadingButton
               onClick={handleSubmit}
+              isLoading={loading}
               disabled={loading}
-            >
-              {loading ? (
-                <svg
-                  className="animate-spin h-5 w-5 text-[#458c58]"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 11-8 8z"
-                  />
-                </svg>
-              ) : view === "signup" ? (
-                "Sign Up"
-              ) : view === "login" ? (
-                "Login"
-              ) : view === "forgotEmail" ? (
-                "Send OTP"
-              ) : view === "forgotOTP" ? (
-                "Verify OTP"
-              ) : (
-                "Reset Password"
-              )}
-            </button>
+              className="bg-white py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer rounded !text-[#458c58] w-full flex justify-center items-center gap-2"
+              label={
+                view === "signup"
+                  ? "Sign Up"
+                  : view === "login"
+                  ? "Login"
+                  : view === "forgotEmail"
+                  ? "Send OTP"
+                  : view === "forgotOTP"
+                  ? "Verify OTP"
+                  : "Reset Password"
+              }
+            />
 
             {view === "login" && (
               <button

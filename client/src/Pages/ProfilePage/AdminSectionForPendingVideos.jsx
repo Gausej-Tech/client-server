@@ -3,11 +3,13 @@ import axios from "../../utils/axios";
 import { formatDistanceToNow } from "date-fns";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingButton from "../../Components/LoadingButton";
 
 const AdminSectionForPendingVideos = () => {
   const visiblePages = 5;
   const [cardsPerPage, setCardsPerPage] = useState(4);
-
+  const [rejectingVideoId, setRejectingVideoId] = useState(null);
+  const [approvingVideoId, setApprovingVideoId] = useState(null);
   const [pendingVideos, setPendingVideos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageWindowStart, setPageWindowStart] = useState(0);
@@ -38,6 +40,7 @@ const AdminSectionForPendingVideos = () => {
   };
 
   const handleApprove = async (id) => {
+    setApprovingVideoId(id);
     try {
       await axios.put(`/admin/videos/approve/${id}`);
       toast.success("Video approved successfully");
@@ -45,10 +48,13 @@ const AdminSectionForPendingVideos = () => {
     } catch (err) {
       toast.error("Failed to approve video");
       console.error("Failed to approve video", err);
+    } finally {
+      setApprovingVideoId(null);
     }
   };
 
   const handleReject = async (id) => {
+    setRejectingVideoId(id);
     try {
       await axios.delete(`/admin/videos/reject/${id}`);
       toast.success("Video rejected successfully");
@@ -56,6 +62,8 @@ const AdminSectionForPendingVideos = () => {
     } catch (err) {
       toast.error("Failed to reject video");
       console.error("Failed to reject video", err);
+    } finally {
+      setRejectingVideoId(null);
     }
   };
 
@@ -81,7 +89,9 @@ const AdminSectionForPendingVideos = () => {
   return (
     <div className="py-10 px-4 md:px-20">
       <Toaster />
-      <h2 className="text-2xl md:text-3xl font-semibold mb-6">Pending Videos</h2>
+      <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+        Pending Videos
+      </h2>
 
       {currentCards.length === 0 ? (
         <p className="text-gray-600">No pending videos.</p>
@@ -134,18 +144,18 @@ const AdminSectionForPendingVideos = () => {
                 })}
               </p>
               <div className="flex justify-between mt-4 gap-2">
-                <button
+                <LoadingButton
+                  label="Approved"
                   onClick={() => handleApprove(video._id)}
-                  className="px-4 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded"
-                >
-                  Approve
-                </button>
-                <button
+                  isLoading={approvingVideoId === video._id}
+                  className="bg-green-500 cursor-pointer hover:bg-greeen-600"
+                />
+                <LoadingButton
+                  label="Reject"
                   onClick={() => handleReject(video._id)}
-                  className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm rounded"
-                >
-                  Reject
-                </button>
+                  isLoading={rejectingVideoId === video._id}
+                  className="bg-red-500 cursor-pointer hover:bg-red-600"
+                />
               </div>
             </div>
           ))}
