@@ -80,7 +80,7 @@ const SearchResult = () => {
         ) : videos.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {Array.isArray(categoryOptions) &&
+              {Array.isArray(currentVideos) &&
                 currentVideos.map((video) => (
                   <Card
                     key={video._id}
