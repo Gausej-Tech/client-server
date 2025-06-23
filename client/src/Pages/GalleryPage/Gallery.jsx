@@ -2,10 +2,10 @@ import React from "react";
 import Layout from "../../Components/Layout";
 import Section1 from "./Section1";
 
-const Video = () => {
+const Gallery = () => {
   return <Layout>
     <Section1/>
   </Layout>;
 };
 
-export default Video;
+export default Gallery;
