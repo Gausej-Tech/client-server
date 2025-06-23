@@ -49,10 +49,22 @@ const Footer = () => {
           <p className="text-2xl font-semibold mb-4">Follow Us</p>
           <ul className="flex justify-center sm:justify-start gap-6">
             <li className="text-2xl cursor-pointer font-semibold hover:-translate-y-2 mb-4 transition-all duration-300 hover:text-[#A3A3A3]">
-              <TbBrandLinkedin />
+              <a
+                href="https://www.linkedin.com/company/gausej/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <TbBrandLinkedin size={24} />
+              </a>
             </li>
             <li className="text-2xl cursor-pointer font-semibold hover:-translate-y-2 mb-4 transition-all duration-300 hover:text-[#A3A3A3]">
-              <FaInstagram />
+               <a
+                href="https://www.instagram.com/building_gausej?igsh=ODZnZjZqZzZiaXhm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                < FaInstagram size={24} />
+              </a>
             </li>
           </ul>
         </div>
