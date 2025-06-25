@@ -70,7 +70,7 @@ const VideoSection = () => {
               posted={formatDistanceToNow(new Date(video.createdAt), {
                 addSuffix: true,
               })}
-              status={video.isApproved}
+              // status={video.isApproved}
             />
           ))}
       </div>
