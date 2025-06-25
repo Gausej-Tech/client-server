@@ -105,7 +105,9 @@ const Upload = () => {
           </p>
           <hr className="text-gray-300 mb-5" />
 
-          <p className="text-gray-500 mb-1">Video File</p>
+          <p className="text-gray-500 mb-1">
+            Video File<span className="text-red-500">*</span>
+          </p>
           <FileUpload onChange={handleVideoChange} />
           {formData.videoPreview && (
             <video
@@ -133,6 +135,7 @@ const Upload = () => {
             <div className="md:mt-6 -mt-5 mb-10">
               <input
                 type="file"
+                disabled  
                 accept="image/*"
                 id="thumbnail-upload"
                 className="hidden"
@@ -145,7 +148,9 @@ const Upload = () => {
             </div>
           </div>
 
-          <p className="text-gray-500 mb-1">Title</p>
+          <p className="text-gray-500 mb-1">
+            Title<span className="text-red-500">*</span>
+          </p>
           <input
             type="text"
             value={formData.title}
@@ -158,7 +163,9 @@ const Upload = () => {
             {formData.title.length}/100
           </p>
 
-          <p className="text-gray-500 mb-1">Description</p>
+          <p className="text-gray-500 mb-1">
+            Description<span className="text-red-500">*</span>
+          </p>
           <textarea
             value={formData.description}
             onChange={(e) => handleInputChange("description", e.target.value)}
@@ -171,7 +178,9 @@ const Upload = () => {
             {formData.description.length}/{maxLength_description}
           </p>
 
-          <p className="text-gray-500 mb-1">Category</p>
+          <p className="text-gray-500 mb-1">
+            Category<span className="text-red-500">*</span>
+          </p>
           <select
             value={formData.category}
             onChange={(e) => handleInputChange("category", e.target.value)}

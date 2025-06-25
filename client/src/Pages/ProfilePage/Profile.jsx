@@ -6,9 +6,8 @@ import { Helmet } from "react-helmet-async";
 import AdminSectionForPendingVideos from "./AdminSectionForPendingVideos";
 
 const Profile = () => {
-  
-  const user = JSON.parse(localStorage.getItem("user")); 
-  const role = user?.role; 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
 
   return (
     <Layout>
@@ -18,7 +17,7 @@ const Profile = () => {
 
       <Section1 />
 
-      {role === "admin" ? <AdminSectionForPendingVideos /> : <Section2 />}
+      <Section2 />
     </Layout>
   );
 };

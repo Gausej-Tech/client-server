@@ -8,7 +8,7 @@ const Card = ({
   posted,
   // views,
   // likes,
-  status,
+  // status,
 }) => {
   const [showMore, setShowMore] = useState(false);
   const maxLength = 30;
@@ -46,9 +46,9 @@ const Card = ({
           )}
         </p>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            {/* <p className="text-gray-500">👁️ {views}</p>
-            <p className="text-gray-500">👍 {likes}</p> */}
+          {/* <div className="flex items-center gap-2">
+            <p className="text-gray-500">👁️ {views}</p>
+            <p className="text-gray-500">👍 {likes}</p>
             <p
               className={`font-semibold text-sm px-2 text-white py-1 rounded-2xl ${
                 status ? "bg-green-600" : "bg-red-600"
@@ -56,7 +56,7 @@ const Card = ({
             >
               {status ? "Approved" : "Pending"}
             </p>
-          </div>
+          </div> */}
           <div className="text-sm flex gap-2 text-gray-500 text-right">
             <p>Almost {posted}</p>
           </div>
