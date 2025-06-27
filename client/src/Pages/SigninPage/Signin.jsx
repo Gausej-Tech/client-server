@@ -138,10 +138,10 @@ const Signin = ({ isOpen, onClose }) => {
       <Helmet>
         <title>
           {isSignup
-            ? "Gausej - SignUp"
+            ? "Gausej - Sign Up"
             : isForgot
             ? "Gausej - Reset Password"
-            : "Gausej - SignIn"}
+            : "Gausej - Sign In"}
         </title>
       </Helmet>
       <Toaster />
@@ -163,7 +163,7 @@ const Signin = ({ isOpen, onClose }) => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
-            {isSignup ? "SignUp" : isForgot ? "Reset Password" : "SignIn"}
+            {isSignup ? "Sign Up" : isForgot ? "Reset Password" : "Sign In"}
           </h2>
 
           <form className="flex flex-col gap-4">

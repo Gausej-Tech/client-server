@@ -148,7 +148,7 @@ const Header = ({ onSigninClick }) => {
             profileDropdown
           ) : (
             <button onClick={onSigninClick} className="green-button">
-              Signin
+              Sign In
             </button>
           )}
         </div>
@@ -206,7 +206,7 @@ const Header = ({ onSigninClick }) => {
                   }}
                   className="green-button inline-block text-sm"
                 >
-                  Signin
+                  Sign In
                 </button>
               )}
             </li>
