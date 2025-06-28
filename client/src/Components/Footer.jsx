@@ -71,7 +71,7 @@ const Footer = () => {
 
         <div className="text-center sm:text-left">
           <p className="text-2xl font-semibold mb-4">Contact Us</p>
-          <p>ceo@gausej.tech</p>
+          <p>gausejstartup@gmail.com</p>
         </div>
       </div>
 

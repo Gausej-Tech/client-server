@@ -33,23 +33,26 @@ const Section1 = () => {
   }, []);
 
   const handleSave = async (formData) => {
-  try {
-    const res = await axios.put("/user/update-profile", formData, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    try {
+      const res = await axios.put("/user/update-profile", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-    // Update UI with latest profile
-    setProfileData(res.data.user);
-    setShowModal(false);
-    toast.success("Profile updated!");
-  } catch (error) {
-    console.error("Profile update failed:", error.response?.data || error.message);
-    toast.error("Failed to update profile.");
-  }
-};
+      // Update UI with latest profile
+      setProfileData(res.data.user);
+      setShowModal(false);
+      toast.success("Profile updated!");
+    } catch (error) {
+      console.error(
+        "Profile update failed:",
+        error.response?.data || error.message
+      );
+      toast.error("Failed to update profile.");
+    }
+  };
 
   if (loading) return <p className="px-8">Loading...</p>;
 
@@ -58,7 +61,7 @@ const Section1 = () => {
 
   return (
     <div className="md:px-20 px-8">
-      <Toaster/>
+      <Toaster />
       <div className="w-full text-sm md:text-base flex flex-col md:flex-row md:items-center justify-between container px-4 py-6 gap-6 md:gap-0">
         {/* Profile and Info Group */}
         <div className="flex flex-col sm:flex-row items-center  sm:items-start gap-4">
@@ -94,7 +97,10 @@ const Section1 = () => {
               </p>
 
               <GoDotFill className="" />
-              <p> {profileData.videoCount} <span>Videos</span></p>
+              <p>
+                {" "}
+                {profileData.videoCount} <span>Videos</span>
+              </p>
 
               {/* followers */}
               {/* <GoDotFill className=" " />
@@ -105,7 +111,6 @@ const Section1 = () => {
 
         {/* buttons */}
         <div className="flex gap-3 justify-center md:justify-end">
-
           {/* follow and message button */}
           {/* <button type="submit" className="green-button">
             Follow
@@ -141,29 +146,35 @@ const Section1 = () => {
       <p className="text-gray-600 text-sm md:text-lg mb-4">{profileData.bio}</p>
       <div className=" flex md:flex-row flex-col text-sm md:text-lg gap-2   text-center md:gap-10 sm:text-left">
         {profileData.twitterLink && (
-          <Link
-            to="/profile"
+          <a
+            href={profileData.twitterLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex gap-1 text-gray-500 hover:text-gray-800 transition-all duration-300"
           >
             <FaTwitter className="mt-1" /> {profileData.twitterLink}
-          </Link>
+          </a>
         )}
         {profileData.linkedinLink && (
-          <Link
-            to="/profile"
+          <a
+            href={profileData.linkedinLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex gap-1 text-gray-500 hover:text-gray-800 transition-all duration-300"
           >
             <FaLinkedin className="mt-1" /> {profileData.linkedinLink}
-          </Link>
+          </a>
         )}
 
         {profileData.websiteUrl && (
-          <Link
-            to="/profile"
+          <a
+            href={profileData.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex gap-1 text-gray-500 hover:text-gray-800 transition-all duration-300"
           >
-            <TbWorld className="mt-1" /> {profileData.websiteUrl}
-          </Link>
+            <FaLinkedin className="mt-1" /> {profileData.websiteUrl}
+          </a>
         )}
       </div>
     </div>
